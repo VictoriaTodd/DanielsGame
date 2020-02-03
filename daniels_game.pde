@@ -26,8 +26,8 @@ PImage startscreenPic;
 PImage endscreenPic;
 
 //variables
-boolean startscreen = true;
-boolean endscreen = false;
+//boolean startscreen = true;
+//boolean endscreen = false;
 float speed = 1;
 
 //create arraylists
@@ -36,13 +36,16 @@ ArrayList<Chips> chips = new ArrayList<Chips>();
 ArrayList<Whale> whales = new ArrayList<Whale>();
 ArrayList<PumpkinPie> pies = new ArrayList<PumpkinPie>();
 
+//enum
+gameState state = gameState.START;
+
 //the most important part - creating the Daniel
 Daniel player = new Daniel();
 
 void draw(){
 
   //what happens on the startscreen
-  if (startscreen == true)
+  if (state == gameState.START )
   {
     background(255, 0, 0);
     textAlign(CENTER);
@@ -50,7 +53,7 @@ void draw(){
     text("Click anywhere to start game", width/2, height/2);
   }
   //what happens on the endscreen
-   else if (endscreen == true)
+   else if (state == gameState.END)
   {
     background(255, 0, 0);
     textAlign(CENTER);
@@ -67,12 +70,12 @@ void draw(){
 
 void mouseClicked() // triggers for start and endscreen, ensure that the player clicks in the game window so keypresses work
 {
-  if (startscreen == true){
-    startscreen = false;
+  if (state == gameState.START){
+    state = gameState.FALLING_OBJECTS;
   }
-  if (endscreen == true)
+  if (state == gameState.END)
   {
-    endscreen = false;
+    state = gameState.FALLING_OBJECTS;
   }
 }
 
@@ -177,7 +180,7 @@ void game()
   }
   if ( player.points < 0)
   {
-    endscreen = true;
+    state = gameState.END;
   }
 }
 
